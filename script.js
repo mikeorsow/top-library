@@ -30,20 +30,40 @@ function Book(title, author, pages, completed) {
   this.completed = completed;
 }
 
-Book.prototype.info = function () {
-  return `${this.title} by ${this.author}, ${this.pages} pages, completed: ${this.completed}`;
-};
-
 listAllBooks();
 
 function addBookToLibrary(book) {
   return myLibrary.push(book);
 }
 
+// function listAllBooks() {
+//   return myLibrary.map((book) => {
+//     const p = document.createElement('p');
+//     p.innerText = book.info();
+//     bookList.appendChild(p);
+//   });
+// }
+
 function listAllBooks() {
-  return myLibrary.map((book) => {
-    const p = document.createElement('p');
-    p.innerText = book.info();
-    bookList.appendChild(p);
-  });
-}
+    bookList.innerHTML = '';
+    return myLibrary.map((book, index) => {
+      const bookCard = document.createElement('div');
+      bookCard.classList.add('book-card');
+      bookCard.setAttribute('data-index', index)
+      bookCard.innerHTML = 
+      `<div class="book-card-title">
+          <h2>${book.title}</h2>
+      </div>
+      <p class="book-card-author">by ${book.author}</p>
+      <div class="book-card-footer">
+          <p class="book-card-pages">${book.pages} pages</p>
+          <p class="book-card-status">read: ${book.completed}</p>
+      </div>
+      <button class="book-card-remove">Remove</button>`
+      bookList.appendChild(bookCard);
+    });
+  }
+
+
+
+
