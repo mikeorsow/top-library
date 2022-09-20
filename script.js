@@ -1,5 +1,3 @@
-
-
 const BOOK1 = new Book(
   'Inspired: How to Create Tech Products Customers Love',
   'Marty Cagan',
@@ -32,26 +30,16 @@ function Book(title, author, pages, completed) {
 
 listAllBooks();
 
-function addBookToLibrary(book) {
-  return myLibrary.push(book);
-}
-
-// function listAllBooks() {
-//   return myLibrary.map((book) => {
-//     const p = document.createElement('p');
-//     p.innerText = book.info();
-//     bookList.appendChild(p);
-//   });
-// }
-
 function listAllBooks() {
-    bookList.innerHTML = '';
-    return myLibrary.map((book, index) => {
-      const bookCard = document.createElement('div');
-      bookCard.classList.add('book-card');
-      bookCard.setAttribute('data-index', index)
-      bookCard.innerHTML = 
-      `<div class="book-card-title">
+    if (myLibrary.length === 0){
+        return bookList.innerHTML = '<h2>You have no books!</h2>';
+    }
+  bookList.innerHTML = '';
+  return myLibrary.map((book, index) => {
+    const bookCard = document.createElement('div');
+    bookCard.classList.add('book-card');
+    bookCard.setAttribute('data-index', index);
+    bookCard.innerHTML = `<div class="book-card-title">
           <h2>${book.title}</h2>
       </div>
       <p class="book-card-author">by ${book.author}</p>
@@ -59,11 +47,25 @@ function listAllBooks() {
           <p class="book-card-pages">${book.pages} pages</p>
           <p class="book-card-status">read: ${book.completed}</p>
       </div>
-      <button class="book-card-remove">Remove</button>`
-      bookList.appendChild(bookCard);
-    });
-  }
+      <button class="book-card-remove">Remove</button>`;
+    bookList.appendChild(bookCard);
+    
+    const removeBookButtons = document.querySelectorAll(
+      'button.book-card-remove'
+    );
 
+    removeBookButtons.forEach((button) =>
+      button.addEventListener('click', removeBookFromLibrary)
+    );
+  });
+}
 
+function removeBookFromLibrary(e) {
+  const bookIndex = e.target.parentElement.dataset.index;
+  myLibrary.splice(bookIndex, 1);
+  listAllBooks();
+}
 
-
+function addBookToLibrary(book) {
+  return myLibrary.push(book);
+}
