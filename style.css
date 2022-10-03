@@ -7,7 +7,7 @@ header {
   grid-auto-flow: column;
   align-items: center;
   justify-content: left;
-  grid-template-columns: max-content;
+  grid-template-columns: max-content max-content;
   gap: 20px;
 }
 

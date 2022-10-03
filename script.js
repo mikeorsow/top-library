@@ -1,3 +1,4 @@
+// Populate a few default library books
 const BOOK1 = new Book(
   'Inspired: How to Create Tech Products Customers Love',
   'Marty Cagan',
@@ -16,11 +17,8 @@ const BOOK3 = new Book(
   276,
   'yes'
 );
-const BOOK4 = new Book('Title test', 'Author Test', 1, 'yes');
 
-let myLibrary = [BOOK1, BOOK2, BOOK3, BOOK4];
-
-const bookList = document.getElementById('book-list');
+let myLibrary = [BOOK1, BOOK2, BOOK3];
 
 function Book(title, author, pages, readStatus) {
   this.title = title;
@@ -28,6 +26,18 @@ function Book(title, author, pages, readStatus) {
   this.pages = pages;
   this.readStatus = readStatus;
 }
+
+Book.prototype.toggleReadStatus = () => {
+  return console.log('you been toggled')
+}
+
+const bookList = document.getElementById('book-list');
+const newBookForm = document.getElementById('new-book-form');
+const addBookHeaderButton = document.querySelector('#show-add-book-form');
+const formSubmitButton = document.querySelector('input[type="submit"]');
+
+addBookHeaderButton.addEventListener('click', showAddBookForm);
+formSubmitButton.addEventListener('click', addBookToLibrary);
 
 listAllBooks();
 
@@ -61,17 +71,6 @@ function listAllBooks() {
   });
 }
 
-const addBookButton = document.querySelector('input[type="submit"]');
-addBookButton.addEventListener('click', addBookToLibrary);
-
-const showFormButton = document.querySelector('#show-add-book-form');
-showFormButton.addEventListener('click', () => {
-  showAddBookForm();
-  // hideShowFormButton();
-});
-
-const addBookForm = document.getElementById('new-book-form');
-
 function removeBookFromLibrary(e) {
   const bookIndex = e.target.parentElement.dataset.index;
   myLibrary.splice(bookIndex, 1);
@@ -89,13 +88,9 @@ function addBookToLibrary(e) {
 
   myLibrary.push(newBook);
   listAllBooks();
-  addBookForm.reset();
+  newBookForm.reset();
 }
 
 function showAddBookForm() {
   document.getElementById('new-book-form').style.display = 'block';
 }
-
-// function hideShowFormButton() {
-//   showFormButton.style.display = 'none';
-// }
