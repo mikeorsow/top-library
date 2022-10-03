@@ -16,8 +16,16 @@ const BOOK3 = new Book(
   276,
   'yes'
 );
+const BOOK4 = new Book(
+  'Title test',
+  'Author Test',
+  1,
+  'yes'
+);
 
-let myLibrary = [BOOK1, BOOK2, BOOK3];
+
+
+let myLibrary = [BOOK1, BOOK2, BOOK3, BOOK4];
 
 const bookList = document.getElementById('book-list');
 
@@ -39,7 +47,8 @@ function listAllBooks() {
     const bookCard = document.createElement('div');
     bookCard.classList.add('book-card');
     bookCard.setAttribute('data-index', index);
-    bookCard.innerHTML = `<div class="book-card-title">
+    bookCard.innerHTML = 
+      `<div class="book-card-title">
           <h2>${book.title}</h2>
       </div>
       <p class="book-card-author">by ${book.author}</p>
