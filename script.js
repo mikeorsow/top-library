@@ -16,14 +16,7 @@ const BOOK3 = new Book(
   276,
   'yes'
 );
-const BOOK4 = new Book(
-  'Title test',
-  'Author Test',
-  1,
-  'yes'
-);
-
-
+const BOOK4 = new Book('Title test', 'Author Test', 1, 'yes');
 
 let myLibrary = [BOOK1, BOOK2, BOOK3, BOOK4];
 
@@ -39,16 +32,15 @@ function Book(title, author, pages, readStatus) {
 listAllBooks();
 
 function listAllBooks() {
-    if (myLibrary.length === 0){
-        return bookList.innerHTML = '<h2>You have no books!</h2>';
-    }
+  if (myLibrary.length === 0) {
+    return (bookList.innerHTML = '<h2>You have no books!</h2>');
+  }
   bookList.innerHTML = '';
   return myLibrary.map((book, index) => {
     const bookCard = document.createElement('div');
     bookCard.classList.add('book-card');
     bookCard.setAttribute('data-index', index);
-    bookCard.innerHTML = 
-      `<div class="book-card-title">
+    bookCard.innerHTML = `<div class="book-card-title">
           <h2>${book.title}</h2>
       </div>
       <p class="book-card-author">by ${book.author}</p>
@@ -58,7 +50,7 @@ function listAllBooks() {
       </div>
       <button class="book-card-remove">Remove</button>`;
     bookList.appendChild(bookCard);
-    
+
     const removeBookButtons = document.querySelectorAll(
       'button.book-card-remove'
     );
@@ -69,8 +61,16 @@ function listAllBooks() {
   });
 }
 
-const addBookButton = document.querySelector('input[type="submit"]')
-addBookButton.addEventListener('click', addBookToLibrary)
+const addBookButton = document.querySelector('input[type="submit"]');
+addBookButton.addEventListener('click', addBookToLibrary);
+
+const showFormButton = document.querySelector('#show-add-book-form');
+showFormButton.addEventListener('click', () => {
+  showAddBookForm();
+  // hideShowFormButton();
+});
+
+const addBookForm = document.getElementById('new-book-form');
 
 function removeBookFromLibrary(e) {
   const bookIndex = e.target.parentElement.dataset.index;
@@ -79,15 +79,23 @@ function removeBookFromLibrary(e) {
 }
 
 function addBookToLibrary(e) {
-    e.preventDefault();
-    const title = document.querySelector('input[name="book-title"]').value;
-    const author = document.querySelector('input[name="book-author"]').value;
-    const pages = document.querySelector('input[name="book-pages"]').value;
-    const status = document.querySelector('input[name="book-read-status"]').value;
+  e.preventDefault();
+  const title = document.querySelector('input[name="book-title"]').value;
+  const author = document.querySelector('input[name="book-author"]').value;
+  const pages = document.querySelector('input[name="book-pages"]').value;
+  const status = document.querySelector('input[name="book-read-status"]').value;
 
-    const newBook = new Book(title, author, pages, status)
-    
-    myLibrary.push(newBook);
-    listAllBooks();
-    document.getElementById("new-book-form").reset();
+  const newBook = new Book(title, author, pages, status);
+
+  myLibrary.push(newBook);
+  listAllBooks();
+  addBookForm.reset();
 }
+
+function showAddBookForm() {
+  document.getElementById('new-book-form').style.display = 'block';
+}
+
+// function hideShowFormButton() {
+//   showFormButton.style.display = 'none';
+// }
