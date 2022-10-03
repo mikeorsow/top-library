@@ -12,8 +12,33 @@
 
 <body>
     <h1>Your Library</h1>
+    <form id="new-book-form">
+        <div>
+            <label for="book-title">Title: </label>
+            <input type="text" name="book-title" id="book-title" required>
+        </div>
+        <div>
+            <label for="book-author">Author: </label>
+            <input type="text" name="book-author" id="book-author" required>
+        </div>
+        <div>
+            <label for="book-pages">Pages: </label>
+            <input type="number" name="book-pages" id="book-pages" required>
+        </div>
+        <legend>Have you read this book?</legend>
+        <div>
+            <input type="radio" id="yes" name="book-read-status" value="yes" checked>
+            <label for="yes">Yes</label>
+        </div>
+        <div>
+            <input type="radio" id="no" name="book-read-status" value="no" checked>
+            <label for="no">No</label>
+        </div>
+        <div>
+            <input type="submit" value="Add Book!">
+        </div>
+    </form>
     <div id="book-list">
     </div>
 </body>
-
 </html>

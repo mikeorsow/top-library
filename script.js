@@ -2,30 +2,30 @@ const BOOK1 = new Book(
   'Inspired: How to Create Tech Products Customers Love',
   'Marty Cagan',
   368,
-  true
+  'yes'
 );
 const BOOK2 = new Book(
   'EMPOWERED: Ordinary People, Extraordinary Products ',
   'Marty Cagan',
   425,
-  true
+  'no'
 );
 const BOOK3 = new Book(
   'Loved: How to Rethink Marketing for Tech Products',
   'Martina Lauchengco',
   276,
-  false
+  'yes'
 );
 
 let myLibrary = [BOOK1, BOOK2, BOOK3];
 
 const bookList = document.getElementById('book-list');
 
-function Book(title, author, pages, completed) {
+function Book(title, author, pages, readStatus) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.completed = completed;
+  this.readStatus = readStatus;
 }
 
 listAllBooks();
@@ -45,7 +45,7 @@ function listAllBooks() {
       <p class="book-card-author">by ${book.author}</p>
       <div class="book-card-footer">
           <p class="book-card-pages">${book.pages} pages</p>
-          <p class="book-card-status">read: ${book.completed}</p>
+          <p class="book-card-status">read: ${book.readStatus}</p>
       </div>
       <button class="book-card-remove">Remove</button>`;
     bookList.appendChild(bookCard);
@@ -60,12 +60,25 @@ function listAllBooks() {
   });
 }
 
+const addBookButton = document.querySelector('input[type="submit"]')
+addBookButton.addEventListener('click', addBookToLibrary)
+
 function removeBookFromLibrary(e) {
   const bookIndex = e.target.parentElement.dataset.index;
   myLibrary.splice(bookIndex, 1);
   listAllBooks();
 }
 
-function addBookToLibrary(book) {
-  return myLibrary.push(book);
+function addBookToLibrary(e) {
+    e.preventDefault();
+    const title = document.querySelector('input[name="book-title"]').value;
+    const author = document.querySelector('input[name="book-author"]').value;
+    const pages = document.querySelector('input[name="book-pages"]').value;
+    const status = document.querySelector('input[name="book-read-status"]').value;
+
+    const newBook = new Book(title, author, pages, status)
+    
+    myLibrary.push(newBook);
+    listAllBooks();
+    document.getElementById("new-book-form").reset();
 }
