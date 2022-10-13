@@ -1,3 +1,20 @@
+class Book {
+  constructor(title, author, pages, readStatus){
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.readStatus = readStatus;
+  }
+  
+  toggleReadStatus() {
+    if (this.readStatus === 'no') {
+      return (this.readStatus = 'yes');
+    }
+    return (this.readStatus = 'no');
+  };
+
+}
+
 // Generate a few default library books
 const BOOK1 = new Book(
   'Inspired: How to Create Tech Products Customers Love',
@@ -20,19 +37,6 @@ const BOOK3 = new Book(
 
 let myLibrary = [BOOK1, BOOK2, BOOK3];
 
-function Book(title, author, pages, readStatus) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.readStatus = readStatus;
-}
-
-Book.prototype.toggleReadStatus = function () {
-  if (this.readStatus === 'no') {
-    return (this.readStatus = 'yes');
-  }
-  return (this.readStatus = 'no');
-};
 
 const bookList = document.getElementById('book-list');
 const newBookForm = document.getElementById('new-book-form');
